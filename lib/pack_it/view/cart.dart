@@ -126,7 +126,7 @@ class CartPage extends StatelessWidget {
                     onPressed: () {
                       if (cartProvider.cartItems.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Cart is empty")),
+                          const SnackBar(content: Text("Nothing in cart")),
                         );
                         return;
                       }
