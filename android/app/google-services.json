@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "700156845115",
+    "project_id": "packbags-9a635",
+    "storage_bucket": "packbags-9a635.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:700156845115:android:b89e2432c84dfe6475501e",
+        "android_client_info": {
+          "package_name": "com.example.pack_bags"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3oA6qzQXj6avTvT1cyFJTNIphJoOqjI4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
