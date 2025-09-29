@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:pack_bags/application/auth/view_model/auth_provider.dart';
 import 'package:pack_bags/pack_it/view/Edit_profilr.dart';
 import 'package:pack_bags/pack_it/view/address_page.dart';
 import 'package:pack_bags/pack_it/view/od.dart';
+import 'package:provider/provider.dart';
 import '../widgets/Custom.dart';
 import 'Help&Support.dart';
 import 'Privacypage.dart';
@@ -139,13 +141,38 @@ class _ProfileState extends State<Profile> {
 
           const SizedBox(height: 20),
 
-          // Logout
-          const CustomContainer(
-            title: "Logout",
-            icon: Iconsax.logout,
+          GestureDetector(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text("Confirm Logout"),
+                  content: const Text("Are you sure you want to log out?"),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text("Cancel"),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Provider.of<AuthProvider>(context, listen: false).logout(context);
+                      },
+                      child: const Text("Logout"),
+                    ),
+                  ],
+                ),
+              );
+            } ,
+            child: const CustomContainer(
+              title: "Logout",
+              icon: Iconsax.logout,
+            ),
           ),
         ],
       ),
     );
   }
 }
+
+
