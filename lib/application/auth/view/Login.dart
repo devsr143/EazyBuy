@@ -231,6 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isloading = false;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool _isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -305,22 +306,33 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 20),
                     TextFormField(
                       controller: passwordController,
-                      validator: (value)=>Validator.validatePassword(value),
-                      obscureText: false,
+                      validator: (value) => Validator.validatePassword(value),
+                      obscureText: !_isPasswordVisible,
                       style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                         hintText: "Enter your Password",
                         hintStyle: const TextStyle(color: Colors.white54),
                         filled: true,
-                        fillColor: Colors.white.withValues(alpha: 0.1),
+                        fillColor: Colors.white.withOpacity(0.1),
                         prefixIcon: const Icon(Iconsax.lock, color: Colors.white54),
-                        suffixIcon: const Icon(Iconsax.eye_slash, color: Colors.white54),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide.none,
+                        suffixIcon: IconButton(
+                        icon: Icon(
+                          _isPasswordVisible ? Iconsax.eye : Iconsax.eye_slash,
+                            color: Colors.white54,
                         ),
-                      ),
-                    ),
+                        onPressed: () {
+                        setState(() {
+                         _isPasswordVisible = !_isPasswordVisible;
+                         }
+                    );
+                },
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide.none,
+              ),
+            ),
+          ),
                     const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
