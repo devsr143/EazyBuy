@@ -40,10 +40,10 @@ class CartProvider with ChangeNotifier {
     }
   }
 
-  void clearCart() {
-    _cartItems.clear();
-    notifyListeners();
-  }
+  // void clearCart() {
+  //   _cartItems.clear();
+  //   notifyListeners();
+  // }
 
   int get itemCount => _cartItems.length;
 

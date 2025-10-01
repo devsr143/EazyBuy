@@ -34,8 +34,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
             begin: Alignment.topLeft,
             end: Alignment.center,
             colors: [
-              Color(0xFF0f261e), // dark greenish tone
-              Color(0xFF000000), // black
+              Color(0xFF0f261e),
+              Color(0xFF000000),
             ],
           ),
         ),
@@ -49,7 +49,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   spacing: 25,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Back button
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -128,7 +127,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       ],
                     ),
 
-                    // Email
                     TextFormField(
                       controller: emailController,
                       validator: (value) => Validator.validateEmail(value),
@@ -146,7 +144,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       ),
                     ),
 
-                    // Password
                     TextFormField(
                       controller: passwordController,
                       validator: (value) => Validator.validatePassword(value),
@@ -176,7 +173,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       ),
                     ),
 
-                    // Confirm Password
                     TextFormField(
                       controller: confirmPasswordController,
                       validator: (value) => Validator.validatePassword(value),
@@ -206,7 +202,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       ),
                     ),
 
-                    // Sign Up Button
                     Consumer<AuthProvider>(
                       builder: (context, auth, _) {
                         return auth.isLoading
@@ -260,7 +255,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       },
                     ),
 
-                    // Divider with OR
                     Row(
                       children: const [
                         Expanded(child: Divider(color: Colors.white24)),
@@ -273,7 +267,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       ],
                     ),
 
-                    // Login Redirect
                     Row(
                       children: [
                         const Text(
@@ -297,7 +290,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       ],
                     ),
 
-                    // Social Buttons
                     Row(
                       children: [
                         Expanded(

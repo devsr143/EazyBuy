@@ -7,7 +7,7 @@ class OrderDetailsPage extends StatelessWidget {
   final double totalAmount;
   final String paymentMethod;
 
-  const OrderDetailsPage({
+   OrderDetailsPage({
     super.key,
     required this.deliveryAddress,
     required this.cartItems,
@@ -27,28 +27,34 @@ class OrderDetailsPage extends StatelessWidget {
         ),
         title: const Text("ORDERS", style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme:  IconThemeData(color: Colors.white),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding:  EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Delivery Address:",
+             Text("Delivery Address:",
                 style: TextStyle(color: Colors.teal, fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            Text(deliveryAddress, style: const TextStyle(color: Colors.white70, fontSize: 16)),
-            const Divider(color: Colors.white24, height: 30),
+             SizedBox(height: 8),
+            Text(deliveryAddress, style:  TextStyle(color: Colors.white70, fontSize: 16)),
+             Divider(color: Colors.white24, height: 30),
 
-            const Text("Payment Method:",
+             Text("Payment Method:",
                 style: TextStyle(color: Colors.teal, fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            Text(paymentMethod, style: const TextStyle(color: Colors.white70, fontSize: 16)),
-            const Divider(color: Colors.white24, height: 30),
+             SizedBox(height: 8),
+            Text(paymentMethod, style:  TextStyle(color: Colors.white70, fontSize: 16)),
+             Divider(color: Colors.white24, height: 30),
 
-            const Text("Ordered Items:",
+            Text("Delivery days:",
                 style: TextStyle(color: Colors.teal, fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 10),
+            SizedBox(height: 8),
+            Text("Product will delivery with in 2 working days", style:  TextStyle(color: Colors.white70, fontSize: 16)),
+            Divider(color: Colors.white24, height: 30),
+
+             Text("Ordered Items:",
+                style: TextStyle(color: Colors.teal, fontSize: 18, fontWeight: FontWeight.bold)),
+             SizedBox(height: 10),
 
             Expanded(
               child: ListView.builder(
@@ -70,11 +76,11 @@ class OrderDetailsPage extends StatelessWidget {
                 },
               ),
             ),
-
-            const Divider(color: Colors.white24),
-            Text(
-              "Total: \$${totalAmount.toStringAsFixed(2)}",
-              style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+            Padding(padding: EdgeInsets.all(20),
+              child: Text(
+                "Total: \$${totalAmount.toStringAsFixed(2)}",
+                style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+              ),
             ),
           ],
         ),

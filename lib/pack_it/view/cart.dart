@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pack_bags/pack_it/view/py.dart';
+import 'package:pack_bags/pack_it/view/payment.dart';
 import 'package:pack_bags/pack_it/view_model/cart_provider.dart';
 import 'package:provider/provider.dart';
 

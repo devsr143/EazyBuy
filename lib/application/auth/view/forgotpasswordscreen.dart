@@ -22,8 +22,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           begin: Alignment.topLeft,
           end: Alignment.center,
           colors: [
-            Color(0xFF0f261e), // dark greenish glow
-            Color(0xFF000000), // black
+            Color(0xFF0f261e),
+            Color(0xFF000000),
           ],
         ),
       ),
@@ -50,20 +50,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           icon: const Icon(Iconsax.arrow_left, color: Colors.white),
                         ),
                       ),
-                      // Row(
-                      //   children: [
-                      //     const Icon(Iconsax.chart, color: Color(0xFF7CFC00)),
-                      //     const SizedBox(width: 6),
-                      //     const Text(
-                      //       "Aflucta",
-                      //       style: TextStyle(
-                      //         color: Colors.white,
-                      //         fontSize: 16,
-                      //         fontWeight: FontWeight.w600,
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
+
                     ],
                   ),
                   const SizedBox(height: 40),

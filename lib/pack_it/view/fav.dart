@@ -28,8 +28,8 @@ class FavoritesPage extends StatelessWidget {
           : GridView.builder(
         padding: const EdgeInsets.all(12),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // two items per row
-          childAspectRatio: 0.7, // card aspect ratio
+          crossAxisCount: 2,
+          childAspectRatio: 0.7,
           crossAxisSpacing: 12,
           mainAxisSpacing: 12,
         ),

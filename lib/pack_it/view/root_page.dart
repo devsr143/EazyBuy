@@ -4,8 +4,7 @@ import 'package:pack_bags/pack_it/view/cart.dart';
 import 'package:pack_bags/pack_it/view/catagory.dart';
 import 'package:pack_bags/pack_it/view/fav.dart';
 import 'package:pack_bags/pack_it/view/home.dart';
-import 'package:pack_bags/pack_it/view/od.dart';
-import 'package:pack_bags/pack_it/view/profile.dart';
+import 'package:pack_bags/pack_it/view/setting.dart';
 import 'package:pack_bags/pack_it/view_model/products_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +32,7 @@ class _RootPageState extends State<RootPage> {
       FavoritesPage(),
       ProductsByCategoryPage(products: productsProvider.products),
       CartPage(),
-       Profile(),
+       SettingsPage(),
     ];
 
     return Scaffold(
@@ -50,7 +49,7 @@ class _RootPageState extends State<RootPage> {
           BottomNavigationBarItem(icon: Icon(Iconsax.heart,color: Colors.white,), label: 'FAV'),
           BottomNavigationBarItem(icon: Icon(Iconsax.category,color: Colors.white,), label: 'Cat'),
           BottomNavigationBarItem(icon: Icon(Iconsax.shopping_cart,color: Colors.white,), label: 'Cart'),
-          BottomNavigationBarItem(icon: Icon(Iconsax.profile_2user4,color: Colors.white,), label: 'Profile'),
+          BottomNavigationBarItem(icon: Icon(Iconsax.setting,color: Colors.white,), label: 'Profile'),
         ],
       ),
     );

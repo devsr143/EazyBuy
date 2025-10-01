@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
-import 'package:pack_bags/pack_it/view/od.dart';
-import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pack_bags/pack_it/model/address_model.dart';
+import 'package:pack_bags/pack_it/view/root_page.dart';
 import 'package:pack_bags/pack_it/view_model/cart_provider.dart';
+import 'package:provider/provider.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
@@ -12,15 +12,73 @@ class PaymentPage extends StatefulWidget {
   @override
   State<PaymentPage> createState() => _PaymentPageState();
 }
+
 class _PaymentPageState extends State<PaymentPage> {
   AddressModel? _selectedAddress;
   String? _selectedPayment;
-  late Box<AddressModel> _addressBox;
+  List<AddressModel> firebaseAddresses = [];
 
   @override
   void initState() {
     super.initState();
-    _addressBox = Hive.box<AddressModel>('addresses');
+    fetchFirebaseAddresses();
+  }
+
+  Future<void> fetchFirebaseAddresses() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .collection('addresses')
+        .orderBy('timestamp', descending: true)
+        .get();
+
+    setState(() {
+      firebaseAddresses = snapshot.docs.map((doc) {
+        final data = doc.data();
+        return AddressModel(
+          name: data['name'],
+          street: data['street'],
+          city: data['city'],
+          state: data['state'],
+          zipCode: data['zipCode'],
+          phone: data['phone'],
+        );
+      }).toList();
+    });
+  }
+
+  Future<void> placeOrder(CartProvider cartProvider) async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null || _selectedAddress == null || _selectedPayment == null) return;
+
+    final orderData = {
+      'address': {
+        'name': _selectedAddress!.name,
+        'street': _selectedAddress!.street,
+        'city': _selectedAddress!.city,
+        'state': _selectedAddress!.state,
+        'zipCode': _selectedAddress!.zipCode,
+        'phone': _selectedAddress!.phone,
+      },
+      'paymentMethod': _selectedPayment,
+      'items': cartProvider.cartItems.entries.map((entry) => {
+        'productId': entry.key.id,
+        'title': entry.key.title,
+        'price': entry.key.price,
+        'quantity': entry.value,
+      }).toList(),
+      'total': cartProvider.totalPrice,
+      'timestamp': FieldValue.serverTimestamp(),
+    };
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .collection('orders')
+        .add(orderData);
   }
 
   @override
@@ -50,42 +108,36 @@ class _PaymentPageState extends State<PaymentPage> {
             ),
             Expanded(
               flex: 2,
-              child: ValueListenableBuilder(
-                valueListenable: _addressBox.listenable(),
-                builder: (context, Box<AddressModel> box, _) {
-                  if (box.values.isEmpty) {
-                    return const Center(
-                      child: Text(
-                        "No addresses saved yet.\nPlease add from 'Add Address' page.",
-                        style: TextStyle(color: Colors.white54),
-                        textAlign: TextAlign.center,
+              child: firebaseAddresses.isEmpty
+                  ? const Center(
+                child: Text(
+                  "No addresses saved yet.\nPlease add one from 'Add Address' page.",
+                  style: TextStyle(color: Colors.white54),
+                  textAlign: TextAlign.center,
+                ),
+              )
+                  : ListView.builder(
+                itemCount: firebaseAddresses.length,
+                itemBuilder: (context, index) {
+                  final address = firebaseAddresses[index];
+                  return Card(
+                    color: Colors.grey[900],
+                    child: RadioListTile<AddressModel>(
+                      activeColor: Colors.teal,
+                      title: Text(address.name,
+                          style: const TextStyle(color: Colors.white)),
+                      subtitle: Text(
+                        "${address.street}, ${address.city}, ${address.state}, ${address.zipCode}\nPhone: ${address.phone}",
+                        style: const TextStyle(color: Colors.white70),
                       ),
-                    );
-                  }
-                  return ListView.builder(
-                    itemCount: box.values.length,
-                    itemBuilder: (context, index) {
-                      final address = box.getAt(index)!;
-                      return Card(
-                        color: Colors.grey[900],
-                        child: RadioListTile<AddressModel>(
-                          activeColor: Colors.teal,
-                          title: Text(address.name,
-                              style: const TextStyle(color: Colors.white)),
-                          subtitle: Text(
-                            "${address.street}, ${address.city}, ${address.state}, ${address.zipCode}\nPhone: ${address.phone}",
-                            style: const TextStyle(color: Colors.white70),
-                          ),
-                          value: address,
-                          groupValue: _selectedAddress,
-                          onChanged: (val) {
-                            setState(() {
-                              _selectedAddress = val;
-                            });
-                          },
-                        ),
-                      );
-                    },
+                      value: address,
+                      groupValue: _selectedAddress,
+                      onChanged: (val) {
+                        setState(() {
+                          _selectedAddress = val;
+                        });
+                      },
+                    ),
                   );
                 },
               ),
@@ -123,7 +175,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     color: Colors.grey[900],
                     child: RadioListTile<String>(
                       activeColor: Colors.teal,
-                      title:  Text("Cash on Delivery",
+                      title: const Text("Cash on Delivery",
                           style: TextStyle(color: Colors.white)),
                       value: "Cash on Delivery",
                       groupValue: _selectedPayment,
@@ -169,8 +221,8 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: const BoxDecoration(color: Colors.white12),
+              padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 12),
+              decoration: const BoxDecoration(color: Colors.black),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -188,7 +240,7 @@ class _PaymentPageState extends State<PaymentPage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       if (_selectedAddress == null) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
@@ -203,17 +255,17 @@ class _PaymentPageState extends State<PaymentPage> {
                         );
                         return;
                       }
+
+                      // await placeOrder(cartProvider);
+                      // cartProvider.clearCart();
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Order placed successfully!")),
+                      );
+
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => OrderDetailsPage(
-                            deliveryAddress:
-                            "${_selectedAddress!.name}, ${_selectedAddress!.street}, ${_selectedAddress!.city}, ${_selectedAddress!.state}, ${_selectedAddress!.zipCode}\nPhone: ${_selectedAddress!.phone}",
-                            cartItems: cartProvider.cartItems,
-                            totalAmount: cartProvider.totalPrice,
-                            paymentMethod: _selectedPayment!,
-                          ),
-                        ),
+                        MaterialPageRoute(builder: (context) => RootPage()),
                       );
                     },
                     child: const Text("CONFIRM ORDER"),
