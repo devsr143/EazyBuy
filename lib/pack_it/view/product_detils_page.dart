@@ -14,8 +14,11 @@ class ProductDetailsPage extends StatefulWidget {
 }
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
-  int _currentIndex = 0; // to track the current image
+  int _currentIndex = 0;
   final PageController _pageController = PageController();
+
+  List<String> availableSizes = ['S', 'M', 'L', 'XL'];
+  String? selectedSize;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +64,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           },
                           itemBuilder: (context, index) {
                             return ClipRRect(
-                              borderRadius: BorderRadius.circular(20), // ✅ Rounded edges
+                              borderRadius: BorderRadius.circular(20),
                               child: Image.network(
                                 widget.product.images![index],
                                 fit: BoxFit.cover,
@@ -98,7 +101,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  // ✅ Page indicator dots
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(
@@ -145,6 +147,24 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               ),
             ),
 
+            DropdownButton<String>(
+              value: selectedSize,
+              dropdownColor: Colors.black,
+              hint: const Text('Choose a size', style: TextStyle(color: Colors.white70)),
+              iconEnabledColor: Colors.white,
+              items: availableSizes.map((size) {
+                return DropdownMenuItem<String>(
+                  value: size,
+                  child: Text(size, style: const TextStyle(color: Colors.white)),
+                );
+              }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  selectedSize = value;
+                });
+              },
+            ),
+
             const SizedBox(height: 16),
             if (widget.product.category != null)
               Row(
@@ -168,6 +188,16 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               widget.product.description ?? 'No Description',
               style: const TextStyle(fontSize: 16, color: Colors.white),
             ),
+
+            const SizedBox(height: 24),
+            Text(
+              'Select Size',
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
           ],
         ),
       ),
@@ -183,8 +213,18 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               ),
             ),
             onPressed: () {
+              if (selectedSize == null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Please select a size'),
+                    duration: Duration(seconds: 1),
+                  ),
+                );
+                return;
+              }
+
               Provider.of<CartProvider>(context, listen: false)
-                  .addToCart(widget.product);
+                  .addToCart(widget.product /*, selectedSize if needed */);
 
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(

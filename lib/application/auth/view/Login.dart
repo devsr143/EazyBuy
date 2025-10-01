@@ -424,11 +424,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     Center(
                       child:
                       Row(
-                        spacing: 110,
                         children: [
                           Text(
                             "Don't have an account?",style: TextStyle(color: Colors.white54),
                           ),
+                          Spacer(),
                           TextButton(onPressed: (){
                             Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateAccountScreen()));
                           },
