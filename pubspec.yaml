@@ -10,8 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-
-
+  flashy_tab_bar2: ^0.0.5
 
   iconsax: ^0.0.8
   image_picker: ^1.2.0

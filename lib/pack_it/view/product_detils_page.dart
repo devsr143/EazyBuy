@@ -17,13 +17,30 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   int _currentIndex = 0;
   final PageController _pageController = PageController();
 
-  List<String> availableSizes = ['S', 'M', 'L', 'XL'];
-  String? selectedSize;
+  // Selections
+  String? selectedSize; // Clothes & Shoes
+  String? selectedModel; // Furniture
+  String? selectedVariant; // Electronics
+
+  double? userRating;
+
+  // Options
+  List<String> sizes = ['S', 'M', 'L', 'XL'];
+  List<String> shoeSizes = ['6', '7', '8', '9', '10'];
+  List<String> models = ['Model A', 'Model B', 'Model C'];
+  List<String> variants = ['Red', 'Blue', 'Black'];
 
   @override
   Widget build(BuildContext context) {
     final favoritesProvider = Provider.of<FavoritesProvider>(context);
     final isFav = favoritesProvider.isFavorite(widget.product);
+
+    // Determine product type
+    final category = widget.product.category?.name?.toLowerCase();
+    bool isClothes = category == 'clothes';
+    bool isShoes = category == 'shoes';
+    bool isFurniture = category == 'furniture';
+    bool isElectronics = category == 'electronics';
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -46,8 +63,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (widget.product.images != null &&
-                widget.product.images!.isNotEmpty)
+            // Images
+            if (widget.product.images != null && widget.product.images!.isNotEmpty)
               Column(
                 children: [
                   Stack(
@@ -87,11 +104,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             favoritesProvider.toggleFavorite(widget.product);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(
-                                  isFav
-                                      ? 'Removed from Favorites'
-                                      : 'Added to Favorites',
-                                ),
+                                content: Text(isFav ? 'Removed from Favorites' : 'Added to Favorites'),
                                 duration: const Duration(seconds: 1),
                               ),
                             );
@@ -111,9 +124,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                         height: _currentIndex == index ? 12 : 8,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: _currentIndex == index
-                              ? Colors.teal
-                              : Colors.white54,
+                          color: _currentIndex == index ? Colors.teal : Colors.white54,
                         ),
                       ),
                     ),
@@ -128,76 +139,150 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               ),
 
             const SizedBox(height: 16),
+
             Text(
               widget.product.title ?? 'No Title',
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
             ),
-
             const SizedBox(height: 8),
             Text(
               '\$${widget.product.price?.toString() ?? '0'}',
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: Colors.teal,
-              ),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.teal),
             ),
+            const SizedBox(height: 16),
 
-            DropdownButton<String>(
-              value: selectedSize,
-              dropdownColor: Colors.black,
-              hint: const Text('Choose a size', style: TextStyle(color: Colors.white70)),
-              iconEnabledColor: Colors.white,
-              items: availableSizes.map((size) {
-                return DropdownMenuItem<String>(
-                  value: size,
-                  child: Text(size, style: const TextStyle(color: Colors.white)),
+            // Dynamic selection based on category
+            if (isClothes) ...[
+              const Text('Select Size', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+              const SizedBox(height: 10),
+              Row(
+                children: sizes.map((size) {
+                  bool isSelected = selectedSize == size;
+                  return GestureDetector(
+                    onTap: () => setState(() => selectedSize = size),
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 12),
+                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+                      decoration: BoxDecoration(
+                        color: isSelected ? Colors.teal : Colors.transparent,
+                        border: Border.all(color: isSelected ? Colors.teal : Colors.white54, width: 1.5),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        size,
+                        style: TextStyle(fontSize: 16, fontWeight: isSelected ? FontWeight.bold : FontWeight.normal, color: isSelected ? Colors.white : Colors.white70),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ] else if (isShoes) ...[
+              const Text('Select Shoe Size', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+              const SizedBox(height: 10),
+              Row(
+                children: shoeSizes.map((size) {
+                  bool isSelected = selectedSize == size;
+                  return GestureDetector(
+                    onTap: () => setState(() => selectedSize = size),
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 12),
+                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+                      decoration: BoxDecoration(
+                        color: isSelected ? Colors.teal : Colors.transparent,
+                        border: Border.all(color: isSelected ? Colors.teal : Colors.white54, width: 1.5),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        size,
+                        style: TextStyle(fontSize: 16, fontWeight: isSelected ? FontWeight.bold : FontWeight.normal, color: isSelected ? Colors.white : Colors.white70),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ] else if (isFurniture) ...[
+              const Text('Select Model', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+              const SizedBox(height: 10),
+              Row(
+                children: models.map((model) {
+                  bool isSelected = selectedModel == model;
+                  return GestureDetector(
+                    onTap: () => setState(() => selectedModel = model),
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 12),
+                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+                      decoration: BoxDecoration(
+                        color: isSelected ? Colors.teal : Colors.transparent,
+                        border: Border.all(color: isSelected ? Colors.teal : Colors.white54, width: 1.5),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        model,
+                        style: TextStyle(fontSize: 16, fontWeight: isSelected ? FontWeight.bold : FontWeight.normal, color: isSelected ? Colors.white : Colors.white70),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ] else if (isElectronics) ...[
+              const Text('Select Variant', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+              const SizedBox(height: 10),
+              Row(
+                children: variants.map((variant) {
+                  bool isSelected = selectedVariant == variant;
+                  return GestureDetector(
+                    onTap: () => setState(() => selectedVariant = variant),
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 12),
+                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+                      decoration: BoxDecoration(
+                        color: isSelected ? Colors.teal : Colors.transparent,
+                        border: Border.all(color: isSelected ? Colors.teal : Colors.white54, width: 1.5),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        variant,
+                        style: TextStyle(fontSize: 16, fontWeight: isSelected ? FontWeight.bold : FontWeight.normal, color: isSelected ? Colors.white : Colors.white70),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ],
+
+            const SizedBox(height: 16),
+            const Text("Rate this Product", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+            const SizedBox(height: 8),
+            Row(
+              children: List.generate(5, (index) {
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      userRating = (index + 1).toDouble();
+                    });
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("You rated this ${index + 1} ⭐"), duration: const Duration(seconds: 1)),
+                    );
+                  },
+                  child: Icon(
+                    index < (userRating ?? 0) ? Icons.star : Icons.star_border,
+                    color: Colors.orangeAccent,
+                    size: 28,
+                  ),
                 );
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  selectedSize = value;
-                });
-              },
+              }),
             ),
 
             const SizedBox(height: 16),
             if (widget.product.category != null)
               Row(
                 children: [
-                  const Text(
-                    'Category: ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Text(
-                    widget.product.category!.name ?? 'Unknown',
-                    style: const TextStyle(color: Colors.white),
-                  ),
+                  const Text('CATEGORY: ', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                  Text(widget.product.category!.name ?? 'Unknown', style: const TextStyle(color: Colors.white)),
                 ],
               ),
-
             const SizedBox(height: 16),
-            Text(
-              widget.product.description ?? 'No Description',
-              style: const TextStyle(fontSize: 16, color: Colors.white),
-            ),
-
-            const SizedBox(height: 24),
-            Text(
-              'Select Size',
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
+            Text(widget.product.description ?? 'No Description', style: const TextStyle(fontSize: 16, color: Colors.white)),
           ],
         ),
       ),
@@ -208,39 +293,33 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.teal,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             ),
             onPressed: () {
-              if (selectedSize == null) {
+              // Validate selection based on product type
+              if ((isClothes && selectedSize == null) ||
+                  (isShoes && selectedSize == null) ||
+                  (isFurniture && selectedModel == null) ||
+                  (isElectronics && selectedVariant == null)) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Please select a size'),
-                    duration: Duration(seconds: 1),
-                  ),
+                  const SnackBar(content: Text('Please make a selection'), duration: Duration(seconds: 1)),
                 );
                 return;
               }
 
-              Provider.of<CartProvider>(context, listen: false)
-                  .addToCart(widget.product /*, selectedSize if needed */);
+              Provider.of<CartProvider>(context, listen: false).addToCart(widget.product);
 
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Added to Cart'),
-                  duration: Duration(seconds: 1),
-                ),
+                const SnackBar(content: Text('Added to Cart'), duration: Duration(seconds: 1)),
               );
             },
-            child: const Text(
-              "ADD TO CART",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
+            child:  Row(
+              spacing: 5,
+              mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+              Icon(Icons.shopping_cart,color: Colors.white,),
+              Text("ADD TO CART", style: TextStyle(
+                  fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white))]),
           ),
         ),
       ),

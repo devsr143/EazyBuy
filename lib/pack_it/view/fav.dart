@@ -9,20 +9,27 @@ class FavoritesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favorites = Provider.of<FavoritesProvider>(context).favorites;
+    final favoritesProvider = Provider.of<FavoritesProvider>(context);
+    final favorites = favoritesProvider.favorites;
 
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text("MY FAVORITES",style: TextStyle(color: Colors.white),),
+        title: const Text(
+          "MY FAVORITES",
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.transparent,
       ),
       body: favorites.isEmpty
           ? const Center(
         child: Text(
           "No favorites added yet",
-          style: TextStyle(fontSize: 18, color: Colors.white,fontWeight: FontWeight.w500),
+          style: TextStyle(
+              fontSize: 18,
+              color: Colors.white,
+              fontWeight: FontWeight.w500),
         ),
       )
           : GridView.builder(
@@ -101,12 +108,27 @@ class FavoritesPage extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  const Padding(
-                    padding: EdgeInsets.only(
+                  Padding(
+                    padding: const EdgeInsets.only(
                         left: 8, right: 8, bottom: 8),
                     child: Align(
                       alignment: Alignment.centerRight,
-                      child: Icon(Icons.favorite, color: Colors.red),
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.favorite,
+                          color: Colors.red,
+                        ),
+                        onPressed: () {
+                          favoritesProvider.toggleFavorite(product);
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Removed from Favorites'),
+                              duration: Duration(seconds: 1),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ],

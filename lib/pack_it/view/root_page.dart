@@ -7,6 +7,7 @@ import 'package:pack_bags/pack_it/view/home.dart';
 import 'package:pack_bags/pack_it/view/setting.dart';
 import 'package:pack_bags/pack_it/view_model/products_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 
 class RootPage extends StatefulWidget {
   const RootPage({super.key});
@@ -19,37 +20,61 @@ class _RootPageState extends State<RootPage> {
   int _selectedIndex = 0;
   late List<Widget> _pages;
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
   @override
   Widget build(BuildContext context) {
     final productsProvider = Provider.of<ProductsProvider>(context);
+
     _pages = [
       ProductsPage(),
       FavoritesPage(),
       ProductsByCategoryPage(products: productsProvider.products),
       CartPage(),
-       SettingsPage(),
+      SettingsPage(),
     ];
 
     return Scaffold(
+      backgroundColor: Colors.black,
       body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: FlashyTabBar(
         backgroundColor: Colors.black,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Iconsax.home,color: Colors.white,), label: 'HOME'),
-          BottomNavigationBarItem(icon: Icon(Iconsax.heart,color: Colors.white,), label: 'FAV'),
-          BottomNavigationBarItem(icon: Icon(Iconsax.category,color: Colors.white,), label: 'Cat'),
-          BottomNavigationBarItem(icon: Icon(Iconsax.shopping_cart,color: Colors.white,), label: 'Cart'),
-          BottomNavigationBarItem(icon: Icon(Iconsax.setting,color: Colors.white,), label: 'Profile'),
+        selectedIndex: _selectedIndex,
+        showElevation: true,
+        onItemSelected: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        items: [
+          FlashyTabBarItem(
+            icon: Icon(Iconsax.home),
+            title: Text('HOME'),
+            activeColor: Colors.white,
+            inactiveColor: Colors.white,
+          ),
+          FlashyTabBarItem(
+            icon: Icon(Iconsax.heart),
+            title: Text('FAVORITES'),
+            activeColor: Colors.white,
+            inactiveColor: Colors.white,
+          ),
+          FlashyTabBarItem(
+            icon: Icon(Iconsax.category),
+            title: Text('CATEGORY'),
+            activeColor: Colors.white,
+            inactiveColor: Colors.white,
+          ),
+          FlashyTabBarItem(
+            icon: Icon(Iconsax.shopping_cart),
+            title: Text('CART'),
+            activeColor: Colors.white,
+            inactiveColor: Colors.white,
+          ),
+          FlashyTabBarItem(
+            icon: Icon(Iconsax.setting),
+            title: Text('SETTINGS'),
+            activeColor: Colors.white,
+            inactiveColor: Colors.white,
+          ),
         ],
       ),
     );

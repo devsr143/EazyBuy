@@ -81,7 +81,7 @@ class _ProductsPageState extends State<ProductsPage> {
                 ),
                 Text(
                   email ?? '',
-                  style: const TextStyle(fontSize: 14, color: Colors.white70),
+                  style: const TextStyle(fontSize: 14, color: Colors.white),
                 ),
               ],
             ),
@@ -102,7 +102,8 @@ class _ProductsPageState extends State<ProductsPage> {
               child: TextField(
                 decoration: InputDecoration(
                   hintText: 'Search products...',
-                  prefixIcon: const Icon(Icons.search),
+                  hintStyle: const TextStyle(color: Colors.white),
+                  prefixIcon: const Icon(Icons.search,color: Colors.white,),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
