@@ -202,7 +202,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       ),
                     ),
 
-                    Consumer<AuthProvider>(
+                    Consumer<AuthenticationProvider>(
                       builder: (context, auth, _) {
                         return auth.isLoading
                             ? const Center(
@@ -229,7 +229,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                                     return;
                                   }
 
-                                  Provider.of<AuthProvider>(context, listen: false)
+                                  Provider.of<AuthenticationProvider>(context, listen: false)
                                       .signUp(
                                     emailController.text.trim(),
                                     passwordController.text.trim(),
