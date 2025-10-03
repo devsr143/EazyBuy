@@ -150,8 +150,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.teal),
             ),
             const SizedBox(height: 16),
-
-            // Dynamic selection based on category
             if (isClothes) ...[
               const Text('Select Size', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
               const SizedBox(height: 10),
@@ -277,7 +275,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             if (widget.product.category != null)
               Row(
                 children: [
-                  const Text('CATEGORY: ', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                  const Text('Category: ', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
                   Text(widget.product.category!.name ?? 'Unknown', style: const TextStyle(color: Colors.white)),
                 ],
               ),
@@ -296,7 +294,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             ),
             onPressed: () {
-              // Validate selection based on product type
               if ((isClothes && selectedSize == null) ||
                   (isShoes && selectedSize == null) ||
                   (isFurniture && selectedModel == null) ||

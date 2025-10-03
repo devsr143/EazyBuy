@@ -107,10 +107,9 @@ class FavoritesPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Spacer(),
                   Padding(
                     padding: const EdgeInsets.only(
-                        left: 8, right: 8, bottom: 8),
+                        left: 8, right: 8, bottom: 4),
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: IconButton(
