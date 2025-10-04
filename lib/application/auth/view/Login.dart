@@ -39,29 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: const Row(
-                          children: [
-                            Icon(Icons.language, color: Colors.white, size: 18),
-                            SizedBox(width: 6),
-                            Text("English", style: TextStyle(color: Colors.white)),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 40),
-
+                  const SizedBox(height: 20),
                   const Text(
                     "Welcome Back",
                     style: TextStyle(
@@ -75,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(color: Colors.white54, fontSize: 14),
                   ),
 
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 150),
 
                   TextFormField(
                     controller: emailController,

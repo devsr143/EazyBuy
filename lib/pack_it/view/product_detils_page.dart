@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pack_bags/pack_it/model/products_model.dart';
 import 'package:pack_bags/pack_it/view_model/fav_provider.dart';
 import 'package:pack_bags/pack_it/view_model/cart_provider.dart';
@@ -249,6 +250,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             ],
 
             const SizedBox(height: 16),
+            const Text("Rating of  this Product", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+            const SizedBox(height: 2),
+            Image.asset("assets/ad banner/img.png",width: 100,),
             const Text("Rate this Product", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
             const SizedBox(height: 8),
             Row(
@@ -271,12 +275,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               }),
             ),
 
-            const SizedBox(height: 16),
+            const SizedBox(height: 10),
             if (widget.product.category != null)
               Row(
                 children: [
-                  const Text('Category: ', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-                  Text(widget.product.category!.name ?? 'Unknown', style: const TextStyle(color: Colors.white)),
+                  const Text('Category: ', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white,fontSize: 18)),
+                  Text(widget.product.category!.name ?? 'Unknown', style: const TextStyle(color: Colors.white,fontSize: 18)),
                 ],
               ),
             const SizedBox(height: 16),
@@ -298,16 +302,26 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   (isShoes && selectedSize == null) ||
                   (isFurniture && selectedModel == null) ||
                   (isElectronics && selectedVariant == null)) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Please make a selection'), duration: Duration(seconds: 1)),
+                Fluttertoast.showToast(
+                  msg: "Please select options",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  backgroundColor: Colors.black87,
+                  textColor: Colors.white,
+                  fontSize: 16.0,
                 );
                 return;
               }
 
               Provider.of<CartProvider>(context, listen: false).addToCart(widget.product);
 
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Added to Cart'), duration: Duration(seconds: 1)),
+              Fluttertoast.showToast(
+                msg: "Added to Cart",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                backgroundColor: Colors.black87,
+                textColor: Colors.white,
+                fontSize: 16.0,
               );
             },
             child:  Row(

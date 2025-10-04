@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pack_bags/pack_it/view/product_detils_page.dart';
 import 'package:pack_bags/pack_it/view_model/fav_provider.dart';
 import 'package:provider/provider.dart';
@@ -119,12 +120,13 @@ class FavoritesPage extends StatelessWidget {
                         ),
                         onPressed: () {
                           favoritesProvider.toggleFavorite(product);
-
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Removed from Favorites'),
-                              duration: Duration(seconds: 1),
-                            ),
+                          Fluttertoast.showToast(
+                            msg: "Removed from Favorites",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            backgroundColor: Colors.black87,
+                            textColor: Colors.white,
+                            fontSize: 16.0,
                           );
                         },
                       ),

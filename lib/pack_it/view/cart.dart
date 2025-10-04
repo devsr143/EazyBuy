@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pack_bags/pack_it/view/payment.dart';
 import 'package:pack_bags/pack_it/view_model/cart_provider.dart';
 import 'package:provider/provider.dart';
@@ -88,9 +89,13 @@ class CartPage extends StatelessWidget {
                                 color: Colors.red),
                             onPressed: () {
                               cartProvider.removeFromCart(product);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text("Item removed")),
+                              Fluttertoast.showToast(
+                                msg: "Item removed from cart",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                backgroundColor: Colors.black87,
+                                textColor: Colors.white,
+                                fontSize: 16.0,
                               );
                             },
                           ),
@@ -124,12 +129,6 @@ class CartPage extends StatelessWidget {
                     ),
                   ),
                     onPressed: () {
-                      if (cartProvider.cartItems.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Nothing in cart")),
-                        );
-                        return;
-                      }
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) =>  PaymentPage()),

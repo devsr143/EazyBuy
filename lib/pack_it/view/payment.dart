@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:pack_bags/pack_it/view_model/cart_provider.dart';
 import 'package:pack_bags/pack_it/view_model/payment_provider.dart';
@@ -128,19 +129,37 @@ class PaymentPageContent extends StatelessWidget {
                     ),
                     onPressed: () async {
                       if (paymentProvider.selectedAddress == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Please select a delivery address")));
-                        return;
+                        Fluttertoast.showToast(
+                          msg: "Please Select Delivery Address",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          backgroundColor: Colors.black87,
+                          textColor: Colors.white,
+                          fontSize: 16.0,
+                        );                        return;
                       }
                       if (paymentProvider.selectedPayment == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Please select a payment method")));
-                        return;
+                        Fluttertoast.showToast(
+                          msg: "Please Select Payment Method",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          backgroundColor: Colors.black87,
+                          textColor: Colors.white,
+                          fontSize: 16.0,
+                        );                        return;
                       }
 
                       // await paymentProvider.placeOrder(cartProvider);
                       // cartProvider.clearCart();
 
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Order placed successfully!")));
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RootPage()));
+                      Fluttertoast.showToast(
+                        msg: "Order Placed Successfully",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        backgroundColor: Colors.black87,
+                        textColor: Colors.white,
+                        fontSize: 16.0,
+                      );                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RootPage()));
                     },
                     child: const Text("CONFIRM ORDER"),
                   ),
