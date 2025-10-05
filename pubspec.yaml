@@ -45,15 +45,12 @@ flutter_launcher_icons:
   ios: true
   image_path: "assets/icon/shopping-online.png"
 
-flutter_native_splash:
-  color: "#000000"
-  image: "assets/icon/shopping-online.png"
-  android: true
-  ios: true
+#flutter_native_splash:
+#  color: "#000000"
+#  image: "assets/animation/shopping-cart.gif"
+#  android: true
+#  ios: true
 
-  android_12:
-    image: "assets/icon/shopping-online.png"
-    color: "#FFFFFF"
 
   # fonts:
   #   - family: Schyler
