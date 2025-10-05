@@ -69,7 +69,7 @@ class _ProductsPageState extends State<ProductsPage> {
                 backgroundColor: Colors.blueGrey,
                 backgroundImage: _imageFile != null
                     ? FileImage(_imageFile!)
-                    : const AssetImage("assets/ad banner/SEO.jpeg") as ImageProvider,
+                    : const AssetImage("assets/ad banner/profile.jpg") as ImageProvider,
               ),
             ),
             const SizedBox(width: 10),
