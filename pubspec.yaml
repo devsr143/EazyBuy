@@ -39,6 +39,7 @@ flutter:
     - assets/ad banner/
     - assets/icon/
     - assets/animation/
+    - assets/onbodyimage/
 
 flutter_launcher_icons:
   android: true
