@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pack_bags/pack_it/model/products_model.dart';
+import 'package:pack_bags/pack_it/view/product_detils_page.dart';
 
 class ProductsByCategoryPage extends StatefulWidget {
   final List<ProductsModel> products;
@@ -40,11 +41,15 @@ class _ProductsByCategoryPageState extends State<ProductsByCategoryPage> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('CATEGORY',style: TextStyle(color: Colors.white),),
+        title: const Text(
+          'CATEGORY',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.transparent,
       ),
       body: Row(
         children: [
+          // Left category list
           Container(
             width: 150,
             color: Colors.transparent,
@@ -83,9 +88,13 @@ class _ProductsByCategoryPageState extends State<ProductsByCategoryPage> {
               },
             ),
           ),
+
+          // Right product grid
           Expanded(
             child: filteredProducts.isEmpty
-                ? const Center(child: Text('No products found'))
+                ? const Center(
+                child: Text('No products found',
+                    style: TextStyle(color: Colors.white)))
                 : Padding(
               padding: const EdgeInsets.all(8.0),
               child: GridView.builder(
@@ -99,7 +108,18 @@ class _ProductsByCategoryPageState extends State<ProductsByCategoryPage> {
                 ),
                 itemBuilder: (context, index) {
                   final product = filteredProducts[index];
-                  return ProductCard(product: product);
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ProductDetailsPage(product: product),
+                        ),
+                      );
+                    },
+                    child: ProductCard(product: product),
+                  );
                 },
               ),
             ),
@@ -135,8 +155,7 @@ class ProductCard extends StatelessWidget {
               )
                   : Container(
                 color: Colors.white12,
-                child:
-                const Icon(Icons.image_not_supported, size: 50),
+                child: const Icon(Icons.image_not_supported, size: 50),
               ),
             ),
           ),
@@ -145,7 +164,9 @@ class ProductCard extends StatelessWidget {
             child: Text(
               product.title ?? 'No Title',
               style: const TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 14),
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
@@ -155,7 +176,9 @@ class ProductCard extends StatelessWidget {
             child: Text(
               '\$${product.price ?? 0}',
               style: const TextStyle(
-                  fontWeight: FontWeight.w500, color: Colors.black),
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+              ),
             ),
           ),
           const SizedBox(height: 8),
