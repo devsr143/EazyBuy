@@ -234,12 +234,12 @@ class ProductCard extends StatelessWidget {
                         );
                       },
                       child: CircleAvatar(
-                        radius: 16,
-                        backgroundColor: Colors.white,
+                        radius: 18,
+                        backgroundColor: Colors.transparent,
                         child: Icon(
                           isFavorite ? Icons.favorite : Icons.favorite_border,
-                          color: isFavorite ? Colors.red : Colors.grey,
-                          size: 18,
+                          color: isFavorite ? Colors.red : Colors.black,
+                          size: 25,
                         ),
                       ),
                     ),
