@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pack_bags/pack_it/view/product_detils_page.dart';
 import 'package:pack_bags/pack_it/view_model/products_provider.dart';
+import 'package:pack_bags/pack_it/view_model/fav_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:pack_bags/pack_it/model/products_model.dart';
 
@@ -46,7 +48,6 @@ class _ProductsPageState extends State<ProductsPage> {
       setState(() {
         _imageFile = File(pickedFile.path);
       });
-      // Optional: Upload to Firebase Storage and save URL to Firestore
     }
   }
 
@@ -103,7 +104,7 @@ class _ProductsPageState extends State<ProductsPage> {
                 decoration: InputDecoration(
                   hintText: 'Search products...',
                   hintStyle: const TextStyle(color: Colors.white),
-                  prefixIcon: const Icon(Icons.search,color: Colors.white,),
+                  prefixIcon: const Icon(Icons.search, color: Colors.white),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
@@ -112,6 +113,7 @@ class _ProductsPageState extends State<ProductsPage> {
               ),
             ),
           ),
+
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(5),
@@ -147,6 +149,7 @@ class _ProductsPageState extends State<ProductsPage> {
               ),
             ),
           ),
+
           SliverPadding(
             padding: const EdgeInsets.all(8.0),
             sliver: SliverGrid(
@@ -178,6 +181,9 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final favoritesProvider = Provider.of<FavoritesProvider>(context);
+    final isFavorite = favoritesProvider.isFavorite(product);
+
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -195,20 +201,53 @@ class ProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-                child: product.images != null && product.images!.isNotEmpty
-                    ? Image.network(
-                  product.images!.first,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                )
-                    : Container(
-                  color: Colors.grey[300],
-                  child: const Icon(Icons.image_not_supported, size: 50),
-                ),
+              child: Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                    child: product.images != null && product.images!.isNotEmpty
+                        ? Image.network(
+                      product.images!.first,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                    )
+                        : Container(
+                      color: Colors.grey[300],
+                      child: const Icon(Icons.image_not_supported, size: 50),
+                    ),
+                  ),
+
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: GestureDetector(
+                      onTap: () {
+                        favoritesProvider.toggleFavorite(product);
+                        Fluttertoast.showToast(
+                          msg: isFavorite
+                              ? "Removed from Favorites"
+                              : "Added to Favorites",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          backgroundColor: Colors.black87,
+                          textColor: Colors.white,
+                        );
+                      },
+                      child: CircleAvatar(
+                        radius: 16,
+                        backgroundColor: Colors.white,
+                        child: Icon(
+                          isFavorite ? Icons.favorite : Icons.favorite_border,
+                          color: isFavorite ? Colors.red : Colors.grey,
+                          size: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
+
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(

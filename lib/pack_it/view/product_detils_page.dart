@@ -103,11 +103,13 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           ),
                           onPressed: () {
                             favoritesProvider.toggleFavorite(widget.product);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(isFav ? 'Removed from Favorites' : 'Added to Favorites'),
-                                duration: const Duration(seconds: 1),
-                              ),
+                            Fluttertoast.showToast(
+                              msg: isFav ? 'Removed from Favorites' : 'Added to Favorites',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              backgroundColor: Colors.black87,
+                              textColor: Colors.white,
+                              fontSize: 16.0,
                             );
                           },
                         ),
