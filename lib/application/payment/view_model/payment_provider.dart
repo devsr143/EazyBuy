@@ -3,8 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 
-import '../model/address_model.dart';
-import 'cart_provider.dart';
+import '../../address/model/address_model.dart';
+import '../../cart/view_model/cart_provider.dart';
 
 class PaymentProvider with ChangeNotifier {
   AddressModel? selectedAddress;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pack_bags/application/pack_it/view/product_detils_page.dart';
+import 'package:pack_bags/application/products/view/product_detils_page.dart';
 
-import '../model/products_model.dart';
+import '../../products/model/products_model.dart';
 
 class ProductsByCategoryPage extends StatefulWidget {
   final List<ProductsModel> products;

@@ -9,13 +9,13 @@ import 'package:pack_bags/application/auth/view_model/auth_provider.dart';
 import 'package:pack_bags/firebase_options.dart';
 import 'package:provider/provider.dart';
 
-import 'application/pack_it/model/address_model.dart';
-import 'application/pack_it/view/OnboardingScreen.dart';
-import 'application/pack_it/view/root_page.dart';
-import 'application/pack_it/view_model/cart_provider.dart';
-import 'application/pack_it/view_model/catogary_provider.dart';
-import 'application/pack_it/view_model/fav_provider.dart';
-import 'application/pack_it/view_model/products_provider.dart';
+import 'application/address/model/address_model.dart';
+import 'application/onbody/view/OnboardingScreen.dart';
+import 'application/rootpage/view/root_page.dart';
+import 'application/cart/view_model/cart_provider.dart';
+import 'application/category/view_model/catogary_provider.dart';
+import 'application/Fav/view_model/fav_provider.dart';
+import 'application/products/view_model/products_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

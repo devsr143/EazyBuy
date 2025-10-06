@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:pack_bags/application/auth/view_model/auth_provider.dart';
 import 'package:provider/provider.dart';
-import '../view_model/cart_provider.dart';
+import '../../cart/view_model/cart_provider.dart';
 import '../widgets/Custom.dart';
-import 'Help&Support.dart';
-import 'Privacypage.dart';
-import 'address_page.dart';
-import 'orders.dart';
+import '../../help&support/view/Help&Support.dart';
+import '../../privacy/view/Privacypage.dart';
+import '../../address/view/address_page.dart';
+import '../../order/view/orders.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});

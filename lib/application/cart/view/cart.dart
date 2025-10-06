@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
-import 'package:pack_bags/application/pack_it/view/payment.dart';
+import 'package:pack_bags/application/payment/view/payment.dart';
 import 'package:provider/provider.dart';
 
 import '../view_model/cart_provider.dart';

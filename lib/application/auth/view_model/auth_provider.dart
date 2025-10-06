@@ -34,7 +34,8 @@ class AuthenticationProvider with ChangeNotifier {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Account created successfully!")),
         );
-        Navigator.pushReplacementNamed(context, '/root');
+        // Navigator.pushReplacementNamed(context, '/root');
+        Navigator.pushNamedAndRemoveUntil(context, '/root', (route) => false);
       }
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -57,8 +58,7 @@ class AuthenticationProvider with ChangeNotifier {
 
       User? user = await _authService.login(email, password);
       if (user != null) {
-        Navigator.pushReplacementNamed(context, '/root');
-      }
+        Navigator.pushNamedAndRemoveUntil(context, '/root', (route) => false);      }
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Login failed: ${e.message}")),

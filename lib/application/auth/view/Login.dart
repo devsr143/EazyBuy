@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:pack_bags/application/auth/view_model/auth_provider.dart';
-import 'package:pack_bags/validator.dart';
+import 'package:pack_bags/core/utils/validator.dart';
 import 'package:provider/provider.dart';
 import 'Signup.dart';
 import 'forgotpasswordscreen.dart';

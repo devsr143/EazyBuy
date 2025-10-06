@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../widgets/Faqcard.dart';
+import '../widget/Faqcard.dart';
 
 class HelpPage extends StatefulWidget {
   const HelpPage({super.key});

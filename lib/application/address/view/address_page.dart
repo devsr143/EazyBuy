@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:pack_bags/validator.dart';
+import 'package:pack_bags/core/utils/validator.dart';
 
 class AddAddressPage extends StatefulWidget {
   const AddAddressPage({super.key});
