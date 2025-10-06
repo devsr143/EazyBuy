@@ -26,7 +26,6 @@ void main() async {
   Hive.registerAdapter(AddressModelAdapter());
   await Hive.openBox<AddressModel>('addresses');
 
-  // Persistent app box for onboarding flag
   final box = await Hive.openBox('app');
   final bool isFirstTime = box.get('isFirstTime', defaultValue: true);
 

@@ -332,7 +332,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 children: [
               Icon(Icons.shopping_cart,color: Colors.white,),
               Text("ADD TO CART", style: TextStyle(
-                  fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white))]),
+                  fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)
+              )
+                ]
+            ),
           ),
         ),
       ),

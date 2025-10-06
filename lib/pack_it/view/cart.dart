@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:lottie/lottie.dart';
 import 'package:pack_bags/pack_it/view/payment.dart';
 import 'package:pack_bags/pack_it/view_model/cart_provider.dart';
 import 'package:provider/provider.dart';
@@ -18,10 +19,30 @@ class CartPage extends StatelessWidget {
         title: const Text("MY CART",style: TextStyle(color: Colors.white),),
         backgroundColor: Colors.transparent,
       ),
-      body: cartProvider.cartItems.isEmpty
-          ? const Center(
-        child: Text("Your cart is empty",style: TextStyle(color: Colors.white),),
-      )
+
+    body: cartProvider.cartItems.isEmpty
+      ? Center(
+      child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Lottie.asset(
+          'assets/animation/nothing.json',
+          width: 180,
+          height: 180,
+          repeat: true,
+        ),
+        const SizedBox(height: 16),
+        const Text(
+          "Your cart is empty",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ],
+    ),
+    )
           : Column(
         children: [
           Expanded(

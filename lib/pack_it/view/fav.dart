@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:lottie/lottie.dart';
 import 'package:pack_bags/pack_it/view/product_detils_page.dart';
 import 'package:pack_bags/pack_it/view_model/fav_provider.dart';
 import 'package:provider/provider.dart';
@@ -23,16 +24,29 @@ class FavoritesPage extends StatelessWidget {
         ),
         backgroundColor: Colors.transparent,
       ),
-      body: favorites.isEmpty
-          ? const Center(
-        child: Text(
+    body: favorites.isEmpty
+    ? Center(
+    child: Column(
+    mainAxisSize: MainAxisSize.min,
+      children: [
+        Lottie.asset(
+          'assets/animation/empty.json',
+          width: 180,
+          height: 180,
+          repeat: true,
+        ),
+        const SizedBox(height: 16),
+        const Text(
           "No favorites added yet",
           style: TextStyle(
-              fontSize: 18,
-              color: Colors.white,
-              fontWeight: FontWeight.w500),
+            fontSize: 18,
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+          ),
         ),
-      )
+      ],
+    ),
+    )
           : GridView.builder(
         padding: const EdgeInsets.all(12),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

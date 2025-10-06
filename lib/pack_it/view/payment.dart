@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:lottie/lottie.dart';
+
 import 'package:pack_bags/pack_it/view_model/cart_provider.dart';
 import 'package:pack_bags/pack_it/view_model/payment_provider.dart';
 import 'package:pack_bags/pack_it/view/root_page.dart';
@@ -20,6 +22,40 @@ class PaymentPage extends StatelessWidget {
 
 class PaymentPageContent extends StatelessWidget {
   const PaymentPageContent({super.key});
+
+  Future<void> showOrderSuccessAnimation(BuildContext context) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => Dialog(
+        backgroundColor: Colors.transparent,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Lottie.asset(
+              'assets/animation/Success.json',
+              width: 80,
+              repeat: false,
+              onLoaded: (composition) {
+                Future.delayed(composition.duration, () {
+                  Navigator.pop(context); // Close dialog
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (_) => const RootPage()),
+                  );
+                });
+              },
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              "Order Placed Successfully!",
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +172,8 @@ class PaymentPageContent extends StatelessWidget {
                           backgroundColor: Colors.black87,
                           textColor: Colors.white,
                           fontSize: 16.0,
-                        );                        return;
+                        );
+                        return;
                       }
                       if (paymentProvider.selectedPayment == null) {
                         Fluttertoast.showToast(
@@ -146,20 +183,14 @@ class PaymentPageContent extends StatelessWidget {
                           backgroundColor: Colors.black87,
                           textColor: Colors.white,
                           fontSize: 16.0,
-                        );                        return;
+                        );
+                        return;
                       }
 
                       // await paymentProvider.placeOrder(cartProvider);
                       // cartProvider.clearCart();
 
-                      Fluttertoast.showToast(
-                        msg: "Order Placed Successfully",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.BOTTOM,
-                        backgroundColor: Colors.black87,
-                        textColor: Colors.white,
-                        fontSize: 16.0,
-                      );                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RootPage()));
+                      await showOrderSuccessAnimation(context);
                     },
                     child: const Text("CONFIRM ORDER"),
                   ),
