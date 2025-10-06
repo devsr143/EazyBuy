@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:pack_bags/pack_it/view/cart.dart';
-import 'package:pack_bags/pack_it/view/catagory.dart';
-import 'package:pack_bags/pack_it/view/fav.dart';
-import 'package:pack_bags/pack_it/view/home.dart';
-import 'package:pack_bags/pack_it/view/setting.dart';
-import 'package:pack_bags/pack_it/view_model/products_provider.dart';
+import 'package:pack_bags/application/pack_it/view/setting.dart';
 import 'package:provider/provider.dart';
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
+
+import '../view_model/products_provider.dart';
+import 'cart.dart';
+import 'catagory.dart';
+import 'fav.dart';
+import 'home.dart';
 
 class RootPage extends StatefulWidget {
   const RootPage({super.key});

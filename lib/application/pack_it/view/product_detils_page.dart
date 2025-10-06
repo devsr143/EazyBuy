@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:pack_bags/pack_it/model/products_model.dart';
-import 'package:pack_bags/pack_it/view_model/fav_provider.dart';
-import 'package:pack_bags/pack_it/view_model/cart_provider.dart';
 import 'package:provider/provider.dart';
+
+import '../model/products_model.dart';
+import '../view_model/cart_provider.dart';
+import '../view_model/fav_provider.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   final ProductsModel product;

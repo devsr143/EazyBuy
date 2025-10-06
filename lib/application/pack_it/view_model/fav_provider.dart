@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pack_bags/pack_it/model/products_model.dart';
+
+import '../model/products_model.dart';
 
 class FavoritesProvider with ChangeNotifier {
   final List<ProductsModel> _favorites = [];

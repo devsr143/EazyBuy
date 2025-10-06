@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pack_bags/application/pack_it/view/root_page.dart';
 import 'package:provider/provider.dart';
 import 'package:lottie/lottie.dart';
-
-import 'package:pack_bags/pack_it/view_model/cart_provider.dart';
-import 'package:pack_bags/pack_it/view_model/payment_provider.dart';
-import 'package:pack_bags/pack_it/view/root_page.dart';
-import 'package:pack_bags/pack_it/model/address_model.dart';
+import '../model/address_model.dart';
+import '../view_model/cart_provider.dart';
+import '../view_model/payment_provider.dart';
 
 class PaymentPage extends StatelessWidget {
   const PaymentPage({super.key});

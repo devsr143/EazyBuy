@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
-import 'package:pack_bags/pack_it/view/product_detils_page.dart';
-import 'package:pack_bags/pack_it/view_model/fav_provider.dart';
+import 'package:pack_bags/application/pack_it/view/product_detils_page.dart';
 import 'package:provider/provider.dart';
-import 'package:pack_bags/pack_it/model/products_model.dart';
+
+import '../model/products_model.dart';
+import '../view_model/fav_provider.dart';
 
 class FavoritesPage extends StatelessWidget {
   const FavoritesPage({super.key});
