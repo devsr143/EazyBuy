@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,12 +26,16 @@ class _AddAddressPageState extends State<AddAddressPage> {
     if (_formKey.currentState!.validate()) {
       final user = FirebaseAuth.instance.currentUser;
       if (user == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('User not logged in')),
+        Fluttertoast.showToast(
+          msg: "Address saved successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.black87,
+          textColor: Colors.white,
+          fontSize: 16.0,
         );
         return;
       }
-
       final addressData = {
         'name': _nameController.text,
         'phone': _phoneController.text,
@@ -48,8 +53,13 @@ class _AddAddressPageState extends State<AddAddressPage> {
             .collection('addresses')
             .add(addressData);
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Address saved to your account!')),
+        Fluttertoast.showToast(
+          msg: "Address saved successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.black87,
+          textColor: Colors.white,
+          fontSize: 16.0,
         );
 
         _nameController.clear();

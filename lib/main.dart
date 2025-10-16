@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,6 @@ import 'package:pack_bags/application/auth/view/Signup.dart';
 import 'package:pack_bags/application/auth/view_model/auth_provider.dart';
 import 'package:pack_bags/firebase_options.dart';
 import 'package:provider/provider.dart';
-
 import 'application/address/model/address_model.dart';
 import 'application/onbody/view/OnboardingScreen.dart';
 import 'application/rootpage/view/root_page.dart';

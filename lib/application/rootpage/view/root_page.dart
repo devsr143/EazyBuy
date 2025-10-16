@@ -21,7 +21,7 @@ class RootPage extends StatefulWidget {
 class _RootPageState extends State<RootPage> {
   int _selectedIndex = 0;
   late List<Widget> _pages;
-  DateTime? lastPressed; // for double-tap to exit feature
+  DateTime? lastPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -101,5 +101,6 @@ class _RootPageState extends State<RootPage> {
           ],
         ),
       ),
-    );  }
+    );
+  }
 }

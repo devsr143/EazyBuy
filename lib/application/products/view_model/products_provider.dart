@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../model/products_model.dart';
 import '../service/product_service.dart';
 
@@ -47,7 +46,6 @@ class ProductsProvider extends ChangeNotifier {
 
     notifyListeners();
   }
-
 
   void searchProducts (String query){
     query = query.toLowerCase();

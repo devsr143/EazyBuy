@@ -52,9 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     "Login to view daily mortgage updates.",
                     style: TextStyle(color: Colors.white54, fontSize: 14),
                   ),
-
-                  const SizedBox(height: 150),
-
+                   SizedBox(height: 150),
                   TextFormField(
                     controller: emailController,
                     validator: (value) => Validator.validateEmail(value),
@@ -72,9 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 20),
-
                   TextFormField(
                     controller: passwordController,
                     validator: (value) => Validator.validatePassword(value),
@@ -105,9 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 10),
-
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
@@ -121,9 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(color: Colors.white)),
                     ),
                   ),
-
                   const SizedBox(height: 20),
-
                   Consumer<AuthenticationProvider>(
                     builder: (context, auth, _) {
                       return auth.isLoading

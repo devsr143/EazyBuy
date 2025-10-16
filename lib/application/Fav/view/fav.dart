@@ -85,7 +85,7 @@ class FavoritesPage extends StatelessWidget {
                         product.images!.isNotEmpty
                         ? Image.network(
                       product.images![0],
-                      height: 140,
+                      height: 120,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     )
