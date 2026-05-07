@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pack_bags/application/auth/service/auth_service.dart';
 
 class AuthenticationProvider with ChangeNotifier {
@@ -9,7 +10,6 @@ class AuthenticationProvider with ChangeNotifier {
 
   User? get currentUser => _user;
   bool get isLoggedIn => _user != null;
-
   AuthenticationProvider() {
     _user = _authService.currentUser;
     FirebaseAuth.instance.authStateChanges().listen((user) {
@@ -31,19 +31,33 @@ class AuthenticationProvider with ChangeNotifier {
 
       User? user = await _authService.signUp(email, password, firstName, lastName);
       if (user != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Account created successfully!")),
+        Fluttertoast.showToast(
+          msg:'Account created successfully',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.black87,
+          textColor: Colors.white,
+          fontSize: 16.0,
         );
-        // Navigator.pushReplacementNamed(context, '/root');
         Navigator.pushNamedAndRemoveUntil(context, '/root', (route) => false);
       }
     } on FirebaseAuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Sign-up failed: ${e.message}")),
+      Fluttertoast.showToast(
+        msg:'Sign up failed',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black87,
+        textColor: Colors.white,
+        fontSize: 16.0,
       );
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Error: ${e.toString()}")),
+      Fluttertoast.showToast(
+        msg:'Error',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black87,
+        textColor: Colors.white,
+        fontSize: 16.0,
       );
     } finally {
       isLoading = false;
@@ -60,12 +74,22 @@ class AuthenticationProvider with ChangeNotifier {
       if (user != null) {
         Navigator.pushNamedAndRemoveUntil(context, '/root', (route) => false);      }
     } on FirebaseAuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Login failed: ${e.message}")),
+      Fluttertoast.showToast(
+        msg:'Login failed',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black87,
+        textColor: Colors.white,
+        fontSize: 16.0,
       );
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Error: ${e.toString()}")),
+      Fluttertoast.showToast(
+        msg:'Error',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black87,
+        textColor: Colors.white,
+        fontSize: 16.0,
       );
     } finally {
       isLoading = false;

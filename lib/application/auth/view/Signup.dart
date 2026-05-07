@@ -201,7 +201,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                         ),
                       ),
                     ),
-
                     Consumer<AuthenticationProvider>(
                       builder: (context, auth, _) {
                         return auth.isLoading
@@ -248,13 +247,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                               ),
                               child: const Text("CREATE ACCOUNT",
                                   style: TextStyle(
-                                      fontSize: 16, color: Colors.black)),
+                                      fontSize: 16, color: Colors.black)
+                              ),
                             ),
                           ),
                         );
                       },
                     ),
-
                     Row(
                       children: const [
                         Expanded(child: Divider(color: Colors.white24)),
@@ -266,7 +265,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                         Expanded(child: Divider(color: Colors.white24)),
                       ],
                     ),
-
                     Row(
                       children: [
                         const Text(
@@ -289,7 +287,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                         )
                       ],
                     ),
-
                     Row(
                       children: [
                         Expanded(

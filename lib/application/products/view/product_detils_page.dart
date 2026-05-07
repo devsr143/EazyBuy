@@ -17,8 +17,7 @@ class ProductDetailsPage extends StatefulWidget {
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
   int _currentIndex = 0;
   final PageController _pageController = PageController();
-
-  // Selections
+  
   String? selectedSize; // Clothes & Shoes
   String? selectedModel; // Furniture
   String? selectedVariant; // Electronics
